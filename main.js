@@ -386,7 +386,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     width: '350px',
     height: '350px',
     borderRadius: '50%',
-    background: 'radial-gradient(circle, rgba(0,245,255,0.05) 0%, transparent 70%)',
+    background: 'radial-gradient(circle, rgba(0,245,255,0.06) 0%, transparent 70%)',
     pointerEvents: 'none',
     zIndex: '1',
     transform: 'translate(-50%, -50%)',

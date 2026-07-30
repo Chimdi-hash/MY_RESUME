@@ -2,26 +2,26 @@
    ROOT VARIABLES & DESIGN TOKENS
    =================================================================== */
 :root {
-  --bg-primary: #0a0a0c;
-  --bg-secondary: #0f0f14;
-  --bg-card: rgba(255, 255, 255, 0.04);
-  --glass-border: rgba(255, 255, 255, 0.08);
-  --glass-blur: 18px;
+  --bg-primary: #1e1e1e;
+  --bg-secondary: #252528;
+  --bg-card: rgba(255, 255, 255, 0.06);
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --glass-blur: 20px;
   --accent-cyan: #00f5ff;
   --accent-purple: #9b59ff;
   --accent-pink: #ff6b9d;
   --accent-gradient: linear-gradient(135deg, #00f5ff, #9b59ff);
   --accent-gradient-alt: linear-gradient(135deg, #9b59ff, #ff6b9d);
   --text-primary: #f0f0f8;
-  --text-secondary: rgba(240, 240, 248, 0.6);
-  --text-muted: rgba(240, 240, 248, 0.35);
+  --text-secondary: rgba(240, 240, 248, 0.65);
+  --text-muted: rgba(240, 240, 248, 0.38);
   --nav-height: 70px;
   --border-radius: 16px;
   --border-radius-sm: 10px;
   --border-radius-lg: 24px;
   --transition: 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-  --shadow-glow: 0 0 40px rgba(0, 245, 255, 0.12);
-  --shadow-card: 0 8px 40px rgba(0, 0, 0, 0.5);
+  --shadow-glow: 0 0 40px rgba(0, 245, 255, 0.15);
+  --shadow-card: 0 8px 40px rgba(0, 0, 0, 0.4);
   --font-display: 'Orbitron', monospace;
   --font-body: 'Outfit', sans-serif;
 }
@@ -181,7 +181,7 @@ svg { display: block; }
 }
 
 #main-nav.scrolled {
-  background: rgba(10, 10, 12, 0.85);
+  background: rgba(30, 30, 30, 0.92);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border-bottom: 1px solid var(--glass-border);
@@ -262,7 +262,7 @@ svg { display: block; }
   position: fixed;
   top: var(--nav-height);
   left: 0; right: 0;
-  background: rgba(10, 10, 12, 0.97);
+  background: rgba(30, 30, 30, 0.97);
   backdrop-filter: blur(20px);
   padding: 2rem;
   flex-direction: column;
@@ -381,7 +381,7 @@ svg { display: block; }
   bottom: -16px;
   left: 50%;
   transform: translateX(-50%);
-  background: rgba(10, 10, 12, 0.9);
+  background: rgba(30, 30, 30, 0.95);
   border: 1px solid rgba(0, 245, 255, 0.3);
   border-radius: 50px;
   padding: 0.4rem 1.2rem;
@@ -941,7 +941,7 @@ svg { display: block; }
   width: 14px; height: 14px;
   border-radius: 50%;
   background: var(--accent-cyan);
-  border: 3px solid var(--bg-primary);
+  border: 3px solid #1e1e1e;
   box-shadow: 0 0 16px rgba(0, 245, 255, 0.5);
   z-index: 1;
 }
