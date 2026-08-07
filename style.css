@@ -1145,9 +1145,18 @@ svg { display: block; }
   Margin-top = Ch - H = 277.13 - 357.96 = -80.83px (round to -81px)
   This guarantees exactly 10px of transparent space on all 6 sides of every hexagon!
 */
-.hex-row-2,
-.hex-row-3 {
+.hex-row-2 {
   margin-top: -81px;
+}
+
+/* 
+  Row 3 has 1 item, which is perfectly centered. 
+  Row 2 has 3 items, the middle of which is perfectly centered.
+  Therefore, Row 3 does not nestle into a gap; it sits directly point-to-point
+  below the middle item of Row 2. We use a positive 10px margin to match the 10px gap.
+*/
+.hex-row-3 {
+  margin-top: 10px;
 }
 
 .hex-wrapper.hidden {
