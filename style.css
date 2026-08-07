@@ -320,43 +320,23 @@ svg { display: block; }
    ================================================================ */
 .photo-frame {
   position: relative;
-  width: 360px;
-  height: 360px;
+  width: 320px;
+  height: 370px; /* height = width * ~1.15 for regular pointy-topped hexagon */
   flex-shrink: 0;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-/* Outer hex: very thin, almost invisible border */
-.hex-frame-outer {
-  position: relative;
-  width: 350px;
-  height: 350px;
-  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
-  /* Very subtle border — just a thin hint of colour */
-  background: rgba(0, 245, 255, 0.18);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 2;
-  /* Faint soft glow only — no heavy neon ring */
-  filter: drop-shadow(0 0 8px rgba(0, 245, 255, 0.25));
-  animation: hex-border-glow 4s ease-in-out infinite;
-}
-
-@keyframes hex-border-glow {
-  0%, 100% { filter: drop-shadow(0 0 6px rgba(0,245,255,0.2)); }
-  50%       { filter: drop-shadow(0 0 14px rgba(0,245,255,0.4)); }
-}
-
-/* Inner hex: 346px inside 350px = 2px border on each side (near-invisible) */
+/* Inner hex (now the only frame): adjusted proportions so it doesn't look short */
 .hex-frame-inner {
-  width: 346px;
-  height: 346px;
+  width: 100%;
+  height: 100%;
   clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
   background: var(--bg-primary);
   overflow: hidden;
+  /* Add subtle glow to the image itself instead of a border */
+  filter: drop-shadow(0 0 15px rgba(0, 245, 255, 0.15));
 }
 
 .profile-img {
@@ -1158,15 +1138,16 @@ svg { display: block; }
 }
 
 /*
-  ROW 2 HONEYCOMB OFFSET — fixed pixel values for reliability:
+  HONEYCOMB OFFSET — fixed pixel values for reliability:
   hex-wrapper width = calc(33.333% - 1rem) of 960px = 304px
   hex-card height  = 304px * 1.15 (aspect-ratio) = 349px
   Vertical overlap = 0.25 * 349px = 87px  → margin-top: -90px
-  Horizontal shift = (304px + 24px gap) / 2 = 164px → translateX(164px)
+  Horizontal stagger is handled automatically by flex justify-content:center
+  because Row 1 has 2 items, Row 2 has 3 items, Row 3 has 1 item.
 */
-.hex-row-2 {
+.hex-row-2,
+.hex-row-3 {
   margin-top: -90px;
-  transform: translateX(164px);
 }
 
 .hex-wrapper.hidden {
@@ -1505,7 +1486,7 @@ a.contact-val:hover { color: var(--accent-cyan); }
   /* Tablet: disable honeycomb offset, show 2-per-row without stagger */
   .hex-grid { max-width: 700px; }
   .hex-row { gap: 1.25rem; }
-  .hex-row-2 { margin-top: 1.5rem; transform: none; }
+  .hex-row-2, .hex-row-3 { margin-top: 1.5rem; transform: none; }
   .hex-wrapper { flex: 0 0 calc(50% - 0.625rem); }
 }
 
@@ -1538,9 +1519,8 @@ a.contact-val:hover { color: var(--accent-cyan); }
   }
 
   /* Keep photo frame at good mobile hex size */
-  .photo-frame { width: 260px; height: 260px; }
-  .hex-frame-outer { width: 250px; height: 250px; }
-  .hex-frame-inner { width: 246px; height: 246px; }
+  .photo-frame { width: 260px; height: 300px; }
+  .hex-frame-inner { width: 100%; height: 100%; }
 
   .photo-ring.ring-1 { width: 300px; height: 300px; }
   .photo-ring.ring-2 { width: 340px; height: 340px; }
@@ -1583,7 +1563,7 @@ a.contact-val:hover { color: var(--accent-cyan); }
     width: 100%;
     margin-bottom: 1rem;
   }
-  .hex-row-2 { margin-top: 0; margin-left: 0; }
+  .hex-row-2, .hex-row-3 { margin-top: 0; margin-left: 0; }
   .hex-wrapper { flex: unset; }
   .hex-card { clip-path: none; border-radius: 14px; aspect-ratio: unset; }
   .hex-inner { padding: 1.25rem 1rem; }
@@ -1610,7 +1590,6 @@ a.contact-val:hover { color: var(--accent-cyan); }
   .about-info { padding: 1.5rem; }
   .contact-form { padding: 1.5rem; }
   .timeline-content { padding: 1.25rem 1rem; }
-  .photo-frame { width: 200px; height: 200px; }
-  .hex-frame-outer { width: 190px; height: 190px; }
-  .hex-frame-inner { width: 186px; height: 186px; }
+  .photo-frame { width: 200px; height: 230px; }
+  .hex-frame-inner { width: 100%; height: 100%; }
 }

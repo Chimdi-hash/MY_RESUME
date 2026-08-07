@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css?v=6" />
+  <link rel="stylesheet" href="style.css?v=7" />
 </head>
 <body>
 
@@ -63,11 +63,9 @@
           <div class="photo-glow"></div>
           <div class="photo-ring ring-1"></div>
           <div class="photo-ring ring-2"></div>
-          <!-- Hexagonal image frame: outer = gradient border, inner = clipped image -->
-          <div class="hex-frame-outer">
-            <div class="hex-frame-inner">
-              <img src="profile.jpg" alt="Profile Photo – Software Engineer" class="profile-img" id="profile-img" />
-            </div>
+          <!-- Hexagonal image frame: no outer border, taller proportion -->
+          <div class="hex-frame-inner">
+            <img src="profile.jpg" alt="Profile Photo – Software Engineer" class="profile-img" id="profile-img" />
           </div>
           <div class="photo-overlay-text">
             <span>Available for hire</span>
@@ -509,7 +507,7 @@
       <!-- Hex Grid: 2 explicit rows for true honeycomb offset -->
       <div class="hex-grid" id="hex-grid">
 
-        <!-- ROW 1 -->
+        <!-- ROW 1: 2 items -->
         <div class="hex-row hex-row-1">
           <div class="hex-wrapper" data-category="web" data-aos="zoom-in">
             <div class="hex-card glass-card">
@@ -540,7 +538,10 @@
               </div>
             </div>
           </div>
+        </div><!-- /hex-row-1 -->
 
+        <!-- ROW 2: 3 items -->
+        <div class="hex-row hex-row-2">
           <div class="hex-wrapper" data-category="web" data-aos="zoom-in" data-aos-delay="150">
             <div class="hex-card glass-card">
               <div class="hex-inner">
@@ -555,10 +556,7 @@
               </div>
             </div>
           </div>
-        </div><!-- /hex-row-1 -->
 
-        <!-- ROW 2: offset right by half a hex for honeycomb effect -->
-        <div class="hex-row hex-row-2">
           <div class="hex-wrapper" data-category="api" data-aos="zoom-in" data-aos-delay="200">
             <div class="hex-card glass-card">
               <div class="hex-inner">
@@ -588,7 +586,10 @@
               </div>
             </div>
           </div>
-
+        </div><!-- /hex-row-2 -->
+        
+        <!-- ROW 3: 1 item -->
+        <div class="hex-row hex-row-3">
           <div class="hex-wrapper" data-category="ai" data-aos="zoom-in" data-aos-delay="300">
             <div class="hex-card glass-card">
               <div class="hex-inner">
@@ -603,7 +604,7 @@
               </div>
             </div>
           </div>
-        </div><!-- /hex-row-2 -->
+        </div><!-- /hex-row-3 -->
 
       </div><!-- /hex-grid -->
     </div>
