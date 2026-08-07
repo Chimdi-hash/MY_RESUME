@@ -315,11 +315,57 @@ svg { display: block; }
   justify-content: center;
 }
 
+/* ================================================================
+   HEXAGONAL PROFILE PHOTO FRAME
+   Two-div technique: outer = gradient hex, inner = photo hex
+   ================================================================ */
 .photo-frame {
   position: relative;
   width: 280px;
   height: 280px;
   flex-shrink: 0;
+  /* Center children */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Outer: gradient background clipped to hex = visible gradient border */
+.hex-frame-outer {
+  position: relative;
+  width: 268px;
+  height: 268px;
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+  background: linear-gradient(135deg, #00f5ff 0%, #9b59ff 50%, #ff6b9d 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  animation: hex-border-glow 3s ease-in-out infinite;
+  filter: drop-shadow(0 0 18px rgba(0, 245, 255, 0.6)) drop-shadow(0 0 40px rgba(155, 89, 255, 0.4));
+}
+
+@keyframes hex-border-glow {
+  0%, 100% { filter: drop-shadow(0 0 14px rgba(0,245,255,0.6)) drop-shadow(0 0 30px rgba(155,89,255,0.4)); }
+  50%       { filter: drop-shadow(0 0 28px rgba(0,245,255,0.9)) drop-shadow(0 0 55px rgba(155,89,255,0.7)); }
+}
+
+/* Inner: same hex shape, 5px inset on each side = shows 5px border from outer gradient */
+.hex-frame-inner {
+  width: calc(268px - 10px);
+  height: calc(268px - 10px);
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+  background: var(--bg-secondary);
+  overflow: hidden;
+}
+
+.profile-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  display: block;
+  filter: saturate(1.05) brightness(1.0);
 }
 
 .photo-ring {
@@ -327,21 +373,20 @@ svg { display: block; }
   border: 1.5px solid;
   animation: spin-slow linear infinite;
   pointer-events: none;
-  /* Hexagonal rings */
   clip-path: polygon(50% 0%, 95% 25%, 95% 75%, 50% 100%, 5% 75%, 5% 25%);
 }
 
 .photo-ring.ring-1 {
   width: 320px; height: 320px;
-  top: -20px; left: -20px;
+  top: calc(50% - 160px); left: calc(50% - 160px);
   border-color: rgba(0, 245, 255, 0.25);
   animation-duration: 12s;
   border-style: dashed;
 }
 
 .photo-ring.ring-2 {
-  width: 360px; height: 360px;
-  top: -40px; left: -40px;
+  width: 365px; height: 365px;
+  top: calc(50% - 182px); left: calc(50% - 182px);
   border-color: rgba(155, 89, 255, 0.18);
   animation-duration: 20s;
   animation-direction: reverse;
@@ -356,9 +401,10 @@ svg { display: block; }
   position: absolute;
   inset: -20px;
   clip-path: polygon(50% 0%, 95% 25%, 95% 75%, 50% 100%, 5% 75%, 5% 25%);
-  background: radial-gradient(ellipse, rgba(0, 245, 255, 0.14) 0%, transparent 70%);
+  background: radial-gradient(ellipse, rgba(0, 245, 255, 0.1) 0%, transparent 70%);
   pointer-events: none;
   animation: pulse-glow 4s ease-in-out infinite;
+  z-index: 0;
 }
 
 /* Hexagonal gradient border ring around photo */
@@ -391,7 +437,7 @@ svg { display: block; }
 
 .photo-overlay-text {
   position: absolute;
-  bottom: -16px;
+  bottom: -28px;
   left: 50%;
   transform: translateX(-50%);
   background: rgba(30, 30, 30, 0.95);
@@ -1082,46 +1128,54 @@ svg { display: block; }
   border-color: transparent;
 }
 
-/* Honeycomb hex grid — desktop: 3 per row, row 2 offset */
+/* ================================================================
+   HONEYCOMB HEX GRID — explicit hex-row containers
+   hex-grid = flex column, hex-row = flex row of 3
+   hex-row-2 pulls up (margin-top) and shifts right (margin-left)
+   ================================================================ */
 .hex-grid {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 0;
+  flex-direction: column;
+  align-items: center;
   max-width: 960px;
   margin: 0 auto;
-  /* horizontal padding = half hex width so offset row doesn't clip */
-  padding: 0 2rem;
+  padding: 0;
 }
 
+/* Each row: 3 hex cards side by side */
+.hex-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 1.5rem;
+  width: 100%;
+}
+
+/* Each hex-wrapper takes exactly 1/3 of the row */
 .hex-wrapper {
-  width: calc(33.333% - 1.5rem);
-  margin: 0 0.75rem 0 0.75rem;
-  flex-shrink: 0;
+  flex: 0 0 calc(33.333% - 1rem);
   transition: opacity var(--transition), transform var(--transition);
 }
 
-/* Row 1 — items 1, 2, 3: no top margin (first row baseline) */
-.hex-wrapper:nth-child(1),
-.hex-wrapper:nth-child(2),
-.hex-wrapper:nth-child(3) {
-  margin-top: 2rem;
-}
-
-/* Row 2 — items 4, 5, 6: shift right by half hex width + pull up for interlocking */
-.hex-wrapper:nth-child(4),
-.hex-wrapper:nth-child(5),
-.hex-wrapper:nth-child(6) {
-  margin-top: calc(-9%);
-}
-.hex-wrapper:nth-child(4) {
-  /* first cell in row 2 indented by half a hex = 50% of (1/3 container) = ~16.66% */
-  margin-left: calc(16.666% + 0.75rem);
+/*
+  ROW 2 HONEYCOMB OFFSET:
+  ─ margin-top: pulls row 2 UP so it interlocks with row 1 vertically.
+    For pointy-top hexagons (aspect-ratio 1/1.15), the interlocking
+    depth = 25% of hex height. hex_height ≈ hex_width × 1.15.
+    hex_width ≈ (960 - 2×gap) / 3 ≈ 308px → hex_height ≈ 354px
+    Overlap needed ≈ 354 × 0.25 = 88px ≈ 9.2% of 960px ≈ -9%
+  ─ margin-left: shifts row 2 right by HALF a hex cell (= 1/6 width)
+    so each row-2 hex sits between two row-1 hexes horizontally.
+*/
+.hex-row-2 {
+  margin-top: -9%;
+  margin-left: calc(100% / 6 + 0.75rem);
 }
 
 .hex-wrapper.hidden {
   display: none;
 }
+
 
 .hex-card {
   position: relative;
@@ -1451,28 +1505,13 @@ a.contact-val:hover { color: var(--accent-cyan); }
 @media (max-width: 1024px) {
   .skills-grid { grid-template-columns: repeat(2, 1fr); }
   .tools-grid { grid-template-columns: repeat(2, 1fr); }
-  /* Tablet: 2-col honeycomb, no nth-child offset needed */
-  .hex-grid {
-    max-width: 680px;
-  }
-  .hex-wrapper {
-    width: calc(50% - 1.5rem);
-  }
-  /* Reset row offsets on tablet */
-  .hex-wrapper:nth-child(4),
-  .hex-wrapper:nth-child(5),
-  .hex-wrapper:nth-child(6) {
-    margin-top: 0;
-  }
-  .hex-wrapper:nth-child(4) {
-    margin-left: 0.75rem;
-  }
-  .hex-wrapper:nth-child(1),
-  .hex-wrapper:nth-child(2),
-  .hex-wrapper:nth-child(3) {
-    margin-top: 0;
-  }
-  .hex-wrapper { margin-bottom: 1.5rem; }
+  /* Tablet: reset honeycomb offset, show normal 2-per-row */
+  .hex-grid { max-width: 700px; }
+  .hex-row { gap: 1.25rem; }
+  .hex-row-2 { margin-top: 0; margin-left: 0; }
+  .hex-wrapper { flex: 0 0 calc(50% - 0.625rem); }
+  /* Last item in row 2 on its own row centered */
+  .hex-row-2 .hex-wrapper:nth-child(3) { flex: 0 0 calc(50% - 0.625rem); }
 }
 
 /* ===================================================================
@@ -1503,13 +1542,13 @@ a.contact-val:hover { color: var(--accent-cyan); }
     order: -1;
   }
 
-  /* Keep photo frame square for hex shape on mobile */
-  .photo-frame {
-    width: 200px; height: 200px;
-  }
+  /* Keep photo frame at good mobile hex size */
+  .photo-frame { width: 200px; height: 200px; }
+  .hex-frame-outer { width: 190px; height: 190px; }
+  .hex-frame-inner { width: 180px; height: 180px; }
 
-  .photo-ring.ring-1 { width: 240px; height: 240px; left: -20px; top: -20px; }
-  .photo-ring.ring-2 { width: 274px; height: 274px; left: -37px; top: -37px; }
+  .photo-ring.ring-1 { width: 236px; height: 236px; }
+  .photo-ring.ring-2 { width: 272px; height: 272px; }
 
   .hero-social-sidebar {
     flex-direction: row;
@@ -1540,20 +1579,19 @@ a.contact-val:hover { color: var(--accent-cyan); }
   .exp-meta { align-items: flex-start; }
   .timeline-content { padding: 1.5rem; }
 
-  /* Projects — mobile: 2 col rectangular cards */
-  .hex-grid {
+  /* Projects — mobile: stack hex-rows as normal grid, rectangular cards */
+  .hex-grid { flex-direction: column; gap: 0; }
+  .hex-row {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 1.25rem;
-    max-width: 100%;
-    padding: 0;
+    gap: 1rem;
+    width: 100%;
+    margin-bottom: 1rem;
   }
-  .hex-wrapper {
-    width: auto;
-    margin: 0 !important;
-  }
-  .hex-card { clip-path: none; border-radius: 16px; aspect-ratio: unset; }
-  .hex-inner { padding: 1.5rem 1.2rem; }
+  .hex-row-2 { margin-top: 0; margin-left: 0; }
+  .hex-wrapper { flex: unset; }
+  .hex-card { clip-path: none; border-radius: 14px; aspect-ratio: unset; }
+  .hex-inner { padding: 1.25rem 1rem; }
   .hex-desc { max-width: 100%; }
 
   /* Contact */
@@ -1568,7 +1606,7 @@ a.contact-val:hover { color: var(--accent-cyan); }
    RESPONSIVE – SMALL MOBILE 480px
    =================================================================== */
 @media (max-width: 480px) {
-  .hex-grid { grid-template-columns: 1fr !important; }
+  .hex-row { grid-template-columns: 1fr !important; }
   .skills-grid { grid-template-columns: 1fr 1fr; }
   .hero-stats { gap: 1.25rem; }
   .hero-cta { flex-direction: column; align-items: center; }
@@ -1578,6 +1616,6 @@ a.contact-val:hover { color: var(--accent-cyan); }
   .contact-form { padding: 1.5rem; }
   .timeline-content { padding: 1.25rem 1rem; }
   .photo-frame { width: 170px; height: 170px; }
-  .photo-ring.ring-1 { width: 205px; height: 205px; left: -17px; top: -17px; }
-  .photo-ring.ring-2 { width: 234px; height: 234px; left: -32px; top: -32px; }
+  .hex-frame-outer { width: 160px; height: 160px; }
+  .hex-frame-inner { width: 150px; height: 150px; }
 }

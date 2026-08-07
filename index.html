@@ -63,8 +63,12 @@
           <div class="photo-glow"></div>
           <div class="photo-ring ring-1"></div>
           <div class="photo-ring ring-2"></div>
-          <div class="photo-hex-border"></div>
-          <img src="profile.jpg" alt="Profile Photo – Software Engineer" class="profile-img" id="profile-img" />
+          <!-- Hexagonal image frame: outer = gradient border, inner = clipped image -->
+          <div class="hex-frame-outer">
+            <div class="hex-frame-inner">
+              <img src="profile.jpg" alt="Profile Photo – Software Engineer" class="profile-img" id="profile-img" />
+            </div>
+          </div>
           <div class="photo-overlay-text">
             <span>Available for hire</span>
             <span class="avail-dot"></span>
@@ -502,100 +506,106 @@
         <button class="filter-btn" data-filter="ai">AI/ML</button>
       </div>
 
-      <!-- Hex Grid -->
+      <!-- Hex Grid: 2 explicit rows for true honeycomb offset -->
       <div class="hex-grid" id="hex-grid">
 
-        <div class="hex-wrapper" data-category="web" data-aos="zoom-in">
-          <div class="hex-card glass-card">
-            <div class="hex-inner">
-              <div class="hex-icon">&#127760;</div>
-              <h3 class="hex-title">E-Commerce Platform</h3>
-              <p class="hex-desc">Full-stack Next.js e-commerce with real-time inventory, Stripe payments, and admin dashboard.</p>
-              <div class="hex-tech"><span>Next.js</span><span>TypeScript</span><span>Stripe</span></div>
-              <div class="hex-links">
-                <a href="#" class="hex-link" aria-label="Live Demo">Demo &#8599;</a>
-                <a href="#" class="hex-link" aria-label="Source Code">Code &#10697;</a>
+        <!-- ROW 1 -->
+        <div class="hex-row hex-row-1">
+          <div class="hex-wrapper" data-category="web" data-aos="zoom-in">
+            <div class="hex-card glass-card">
+              <div class="hex-inner">
+                <div class="hex-icon">&#127760;</div>
+                <h3 class="hex-title">E-Commerce Platform</h3>
+                <p class="hex-desc">Full-stack Next.js e-commerce with real-time inventory, Stripe payments, and admin dashboard.</p>
+                <div class="hex-tech"><span>Next.js</span><span>TypeScript</span><span>Stripe</span></div>
+                <div class="hex-links">
+                  <a href="#" class="hex-link" aria-label="Live Demo">Demo &#8599;</a>
+                  <a href="#" class="hex-link" aria-label="Source Code">Code &#10697;</a>
+                </div>
               </div>
             </div>
           </div>
-        </div>
 
-        <div class="hex-wrapper" data-category="ai" data-aos="zoom-in" data-aos-delay="100">
-          <div class="hex-card glass-card">
-            <div class="hex-inner">
-              <div class="hex-icon">&#129504;</div>
-              <h3 class="hex-title">AI Chat Assistant</h3>
-              <p class="hex-desc">Python-powered conversational AI with context memory, file upload, and streaming responses.</p>
-              <div class="hex-tech"><span>Python</span><span>FastAPI</span><span>LLM</span></div>
-              <div class="hex-links">
-                <a href="#" class="hex-link" aria-label="Live Demo">Demo &#8599;</a>
-                <a href="#" class="hex-link" aria-label="Source Code">Code &#10697;</a>
+          <div class="hex-wrapper" data-category="ai" data-aos="zoom-in" data-aos-delay="100">
+            <div class="hex-card glass-card">
+              <div class="hex-inner">
+                <div class="hex-icon">&#129504;</div>
+                <h3 class="hex-title">AI Chat Assistant</h3>
+                <p class="hex-desc">Python-powered conversational AI with context memory, file upload, and streaming responses.</p>
+                <div class="hex-tech"><span>Python</span><span>FastAPI</span><span>LLM</span></div>
+                <div class="hex-links">
+                  <a href="#" class="hex-link" aria-label="Live Demo">Demo &#8599;</a>
+                  <a href="#" class="hex-link" aria-label="Source Code">Code &#10697;</a>
+                </div>
               </div>
             </div>
           </div>
-        </div>
 
-        <div class="hex-wrapper" data-category="web" data-aos="zoom-in" data-aos-delay="150">
-          <div class="hex-card glass-card">
-            <div class="hex-inner">
-              <div class="hex-icon">&#128202;</div>
-              <h3 class="hex-title">Analytics Dashboard</h3>
-              <p class="hex-desc">Real-time data visualization dashboard with WebSocket updates and exportable reports.</p>
-              <div class="hex-tech"><span>React</span><span>TypeScript</span><span>Chart.js</span></div>
-              <div class="hex-links">
-                <a href="#" class="hex-link" aria-label="Live Demo">Demo &#8599;</a>
-                <a href="#" class="hex-link" aria-label="Source Code">Code &#10697;</a>
+          <div class="hex-wrapper" data-category="web" data-aos="zoom-in" data-aos-delay="150">
+            <div class="hex-card glass-card">
+              <div class="hex-inner">
+                <div class="hex-icon">&#128202;</div>
+                <h3 class="hex-title">Analytics Dashboard</h3>
+                <p class="hex-desc">Real-time data visualization dashboard with WebSocket updates and exportable reports.</p>
+                <div class="hex-tech"><span>React</span><span>TypeScript</span><span>Chart.js</span></div>
+                <div class="hex-links">
+                  <a href="#" class="hex-link" aria-label="Live Demo">Demo &#8599;</a>
+                  <a href="#" class="hex-link" aria-label="Source Code">Code &#10697;</a>
+                </div>
               </div>
             </div>
           </div>
-        </div>
+        </div><!-- /hex-row-1 -->
 
-        <div class="hex-wrapper" data-category="api" data-aos="zoom-in" data-aos-delay="200">
-          <div class="hex-card glass-card">
-            <div class="hex-inner">
-              <div class="hex-icon">&#128279;</div>
-              <h3 class="hex-title">REST API Engine</h3>
-              <p class="hex-desc">Scalable RESTful microservice with JWT auth, rate limiting, Redis caching, and OpenAPI docs.</p>
-              <div class="hex-tech"><span>Python</span><span>FastAPI</span><span>Redis</span></div>
-              <div class="hex-links">
-                <a href="#" class="hex-link" aria-label="Live Demo">Demo &#8599;</a>
-                <a href="#" class="hex-link" aria-label="Source Code">Code &#10697;</a>
+        <!-- ROW 2: offset right by half a hex for honeycomb effect -->
+        <div class="hex-row hex-row-2">
+          <div class="hex-wrapper" data-category="api" data-aos="zoom-in" data-aos-delay="200">
+            <div class="hex-card glass-card">
+              <div class="hex-inner">
+                <div class="hex-icon">&#128279;</div>
+                <h3 class="hex-title">REST API Engine</h3>
+                <p class="hex-desc">Scalable RESTful microservice with JWT auth, rate limiting, Redis caching, and OpenAPI docs.</p>
+                <div class="hex-tech"><span>Python</span><span>FastAPI</span><span>Redis</span></div>
+                <div class="hex-links">
+                  <a href="#" class="hex-link" aria-label="Live Demo">Demo &#8599;</a>
+                  <a href="#" class="hex-link" aria-label="Source Code">Code &#10697;</a>
+                </div>
               </div>
             </div>
           </div>
-        </div>
 
-        <div class="hex-wrapper" data-category="web" data-aos="zoom-in" data-aos-delay="250">
-          <div class="hex-card glass-card">
-            <div class="hex-inner">
-              <div class="hex-icon">&#128221;</div>
-              <h3 class="hex-title">Project Manager SaaS</h3>
-              <p class="hex-desc">Collaborative project management tool with kanban boards, task assignments, and Slack integration.</p>
-              <div class="hex-tech"><span>Next.js</span><span>Node.js</span><span>MongoDB</span></div>
-              <div class="hex-links">
-                <a href="#" class="hex-link" aria-label="Live Demo">Demo &#8599;</a>
-                <a href="#" class="hex-link" aria-label="Source Code">Code &#10697;</a>
+          <div class="hex-wrapper" data-category="web" data-aos="zoom-in" data-aos-delay="250">
+            <div class="hex-card glass-card">
+              <div class="hex-inner">
+                <div class="hex-icon">&#128221;</div>
+                <h3 class="hex-title">Project Manager SaaS</h3>
+                <p class="hex-desc">Collaborative project management tool with kanban boards, task assignments, and Slack integration.</p>
+                <div class="hex-tech"><span>Next.js</span><span>Node.js</span><span>MongoDB</span></div>
+                <div class="hex-links">
+                  <a href="#" class="hex-link" aria-label="Live Demo">Demo &#8599;</a>
+                  <a href="#" class="hex-link" aria-label="Source Code">Code &#10697;</a>
+                </div>
               </div>
             </div>
           </div>
-        </div>
 
-        <div class="hex-wrapper" data-category="ai" data-aos="zoom-in" data-aos-delay="300">
-          <div class="hex-card glass-card">
-            <div class="hex-inner">
-              <div class="hex-icon">&#128064;</div>
-              <h3 class="hex-title">CV Analyzer AI</h3>
-              <p class="hex-desc">AI-powered resume screener that ranks candidates against job descriptions using NLP models.</p>
-              <div class="hex-tech"><span>Python</span><span>NLP</span><span>React</span></div>
-              <div class="hex-links">
-                <a href="#" class="hex-link" aria-label="Live Demo">Demo &#8599;</a>
-                <a href="#" class="hex-link" aria-label="Source Code">Code &#10697;</a>
+          <div class="hex-wrapper" data-category="ai" data-aos="zoom-in" data-aos-delay="300">
+            <div class="hex-card glass-card">
+              <div class="hex-inner">
+                <div class="hex-icon">&#128064;</div>
+                <h3 class="hex-title">CV Analyzer AI</h3>
+                <p class="hex-desc">AI-powered resume screener that ranks candidates against job descriptions using NLP models.</p>
+                <div class="hex-tech"><span>Python</span><span>NLP</span><span>React</span></div>
+                <div class="hex-links">
+                  <a href="#" class="hex-link" aria-label="Live Demo">Demo &#8599;</a>
+                  <a href="#" class="hex-link" aria-label="Source Code">Code &#10697;</a>
+                </div>
               </div>
             </div>
           </div>
-        </div>
+        </div><!-- /hex-row-2 -->
 
-      </div>
+      </div><!-- /hex-grid -->
     </div>
   </section>
 
