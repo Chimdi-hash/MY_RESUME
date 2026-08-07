@@ -317,57 +317,43 @@ svg { display: block; }
 
 /* ================================================================
    HEXAGONAL PROFILE PHOTO FRAME
-   Two-div technique: outer = gradient hex, inner = photo hex
    ================================================================ */
 .photo-frame {
   position: relative;
-  width: 280px;
-  height: 280px;
+  width: 360px;
+  height: 360px;
   flex-shrink: 0;
-  /* Center children */
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-/* Outer: gradient background clipped to hex = visible gradient border */
+/* Outer hex: very thin, almost invisible border */
 .hex-frame-outer {
   position: relative;
-  width: 264px;
-  height: 264px;
+  width: 350px;
+  height: 350px;
   clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
-  background: linear-gradient(135deg, #00f5ff 0%, #9b59ff 50%, #ff6b9d 100%);
+  /* Very subtle border — just a thin hint of colour */
+  background: rgba(0, 245, 255, 0.18);
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 2;
-  /* Strong pulsing neon glow so the hex border is unmissable */
-  filter:
-    drop-shadow(0 0 12px #00f5ff)
-    drop-shadow(0 0 28px rgba(0,245,255,0.7))
-    drop-shadow(0 0 55px rgba(155,89,255,0.5));
-  animation: hex-border-glow 2.5s ease-in-out infinite;
+  /* Faint soft glow only — no heavy neon ring */
+  filter: drop-shadow(0 0 8px rgba(0, 245, 255, 0.25));
+  animation: hex-border-glow 4s ease-in-out infinite;
 }
 
 @keyframes hex-border-glow {
-  0%, 100% {
-    filter:
-      drop-shadow(0 0 10px #00f5ff)
-      drop-shadow(0 0 22px rgba(0,245,255,0.7))
-      drop-shadow(0 0 45px rgba(155,89,255,0.4));
-  }
-  50% {
-    filter:
-      drop-shadow(0 0 22px #00f5ff)
-      drop-shadow(0 0 45px rgba(0,245,255,0.95))
-      drop-shadow(0 0 80px rgba(155,89,255,0.8));
-  }
+  0%, 100% { filter: drop-shadow(0 0 6px rgba(0,245,255,0.2)); }
+  50%       { filter: drop-shadow(0 0 14px rgba(0,245,255,0.4)); }
 }
 
-/* Inner: 15px smaller on each side — shows 15px gradient border from outer */
+/* Inner hex: 346px inside 350px = 2px border on each side (near-invisible) */
 .hex-frame-inner {
-  width: calc(264px - 30px);
-  height: calc(264px - 30px);
+  width: 346px;
+  height: 346px;
   clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
   background: var(--bg-primary);
   overflow: hidden;
@@ -384,25 +370,25 @@ svg { display: block; }
 
 .photo-ring {
   position: absolute;
-  border: 1.5px solid;
+  border: 1px solid;
   animation: spin-slow linear infinite;
   pointer-events: none;
   clip-path: polygon(50% 0%, 95% 25%, 95% 75%, 50% 100%, 5% 75%, 5% 25%);
 }
 
 .photo-ring.ring-1 {
-  width: 320px; height: 320px;
-  top: calc(50% - 160px); left: calc(50% - 160px);
-  border-color: rgba(0, 245, 255, 0.25);
-  animation-duration: 12s;
+  width: 400px; height: 400px;
+  top: calc(50% - 200px); left: calc(50% - 200px);
+  border-color: rgba(0, 245, 255, 0.18);
+  animation-duration: 14s;
   border-style: dashed;
 }
 
 .photo-ring.ring-2 {
-  width: 365px; height: 365px;
-  top: calc(50% - 182px); left: calc(50% - 182px);
-  border-color: rgba(155, 89, 255, 0.18);
-  animation-duration: 20s;
+  width: 450px; height: 450px;
+  top: calc(50% - 225px); left: calc(50% - 225px);
+  border-color: rgba(155, 89, 255, 0.12);
+  animation-duration: 22s;
   animation-direction: reverse;
 }
 
@@ -1172,14 +1158,15 @@ svg { display: block; }
 }
 
 /*
-  ROW 2 HONEYCOMB OFFSET:
-  Use transform:translateX so the shift is purely visual (no layout overflow).
-  translateX 100%/6 = 1/6 of row's own width = half of one hex cell width.
-  margin-top pulls row 2 up to interlock with row 1.
+  ROW 2 HONEYCOMB OFFSET — fixed pixel values for reliability:
+  hex-wrapper width = calc(33.333% - 1rem) of 960px = 304px
+  hex-card height  = 304px * 1.15 (aspect-ratio) = 349px
+  Vertical overlap = 0.25 * 349px = 87px  → margin-top: -90px
+  Horizontal shift = (304px + 24px gap) / 2 = 164px → translateX(164px)
 */
 .hex-row-2 {
-  margin-top: -9%;
-  transform: translateX(calc(100% / 6 + 0.75rem));
+  margin-top: -90px;
+  transform: translateX(164px);
 }
 
 .hex-wrapper.hidden {
@@ -1515,13 +1502,11 @@ a.contact-val:hover { color: var(--accent-cyan); }
 @media (max-width: 1024px) {
   .skills-grid { grid-template-columns: repeat(2, 1fr); }
   .tools-grid { grid-template-columns: repeat(2, 1fr); }
-  /* Tablet: reset honeycomb offset, show normal 2-per-row */
+  /* Tablet: disable honeycomb offset, show 2-per-row without stagger */
   .hex-grid { max-width: 700px; }
   .hex-row { gap: 1.25rem; }
-  .hex-row-2 { margin-top: 0; margin-left: 0; }
+  .hex-row-2 { margin-top: 1.5rem; transform: none; }
   .hex-wrapper { flex: 0 0 calc(50% - 0.625rem); }
-  /* Last item in row 2 on its own row centered */
-  .hex-row-2 .hex-wrapper:nth-child(3) { flex: 0 0 calc(50% - 0.625rem); }
 }
 
 /* ===================================================================
@@ -1553,12 +1538,12 @@ a.contact-val:hover { color: var(--accent-cyan); }
   }
 
   /* Keep photo frame at good mobile hex size */
-  .photo-frame { width: 200px; height: 200px; }
-  .hex-frame-outer { width: 190px; height: 190px; }
-  .hex-frame-inner { width: 180px; height: 180px; }
+  .photo-frame { width: 260px; height: 260px; }
+  .hex-frame-outer { width: 250px; height: 250px; }
+  .hex-frame-inner { width: 246px; height: 246px; }
 
-  .photo-ring.ring-1 { width: 236px; height: 236px; }
-  .photo-ring.ring-2 { width: 272px; height: 272px; }
+  .photo-ring.ring-1 { width: 300px; height: 300px; }
+  .photo-ring.ring-2 { width: 340px; height: 340px; }
 
   .hero-social-sidebar {
     flex-direction: row;
@@ -1625,7 +1610,7 @@ a.contact-val:hover { color: var(--accent-cyan); }
   .about-info { padding: 1.5rem; }
   .contact-form { padding: 1.5rem; }
   .timeline-content { padding: 1.25rem 1rem; }
-  .photo-frame { width: 170px; height: 170px; }
-  .hex-frame-outer { width: 160px; height: 160px; }
-  .hex-frame-inner { width: 150px; height: 150px; }
+  .photo-frame { width: 200px; height: 200px; }
+  .hex-frame-outer { width: 190px; height: 190px; }
+  .hex-frame-inner { width: 186px; height: 186px; }
 }
