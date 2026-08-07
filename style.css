@@ -321,7 +321,7 @@ svg { display: block; }
 .photo-frame {
   position: relative;
   width: 320px;
-  height: 370px; /* height = width * ~1.15 for regular pointy-topped hexagon */
+  height: 370px; /* height = width * 1.1547 for perfect regular hexagon */
   flex-shrink: 0;
   display: flex;
   align-items: center;
@@ -335,8 +335,7 @@ svg { display: block; }
   clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
   background: var(--bg-primary);
   overflow: hidden;
-  /* Add subtle glow to the image itself instead of a border */
-  filter: drop-shadow(0 0 15px rgba(0, 245, 255, 0.15));
+  filter: drop-shadow(0 0 15px rgba(0, 245, 255, 0.2));
 }
 
 .profile-img {
@@ -1117,57 +1116,56 @@ svg { display: block; }
   display: flex;
   flex-direction: column;
   align-items: center;
-  max-width: 960px;
+  max-width: 950px;
   margin: 0 auto;
   padding: 0;
 }
 
-/* Each row: 3 hex cards side by side */
+/* Each row: flex row of hex cards */
 .hex-row {
   display: flex;
   flex-direction: row;
   justify-content: center;
-  gap: 1.5rem;
+  gap: 10px; /* Extremely thin, perfectly equal space */
   width: 100%;
 }
 
-/* Each hex-wrapper takes exactly 1/3 of the row */
+/* Each hex-wrapper takes exactly 310px width */
 .hex-wrapper {
-  flex: 0 0 calc(33.333% - 1rem);
+  flex: 0 0 310px;
   transition: opacity var(--transition), transform var(--transition);
 }
 
 /*
-  HONEYCOMB OFFSET — fixed pixel values for reliability:
-  hex-wrapper width = calc(33.333% - 1rem) of 960px = 304px
-  hex-card height  = 304px * 1.15 (aspect-ratio) = 349px
-  Vertical overlap = 0.25 * 349px = 87px  → margin-top: -90px
-  Horizontal stagger is handled automatically by flex justify-content:center
-  because Row 1 has 2 items, Row 2 has 3 items, Row 3 has 1 item.
+  HONEYCOMB OFFSET — MATHEMATICALLY PERFECT GEOMETRY:
+  W = 310px, Gap = 10px
+  Horizontal center-to-center (Cw) = 320px
+  Vertical center-to-center (Ch) = Cw * (sqrt(3)/2) = 320 * 0.866025 = 277.13px
+  Card Height (H) = W * (2/sqrt(3)) = 310 * 1.1547 = 357.96px
+  Margin-top = Ch - H = 277.13 - 357.96 = -80.83px (round to -81px)
+  This guarantees exactly 10px of transparent space on all 6 sides of every hexagon!
 */
 .hex-row-2,
 .hex-row-3 {
-  margin-top: -90px;
+  margin-top: -81px;
 }
 
 .hex-wrapper.hidden {
   display: none;
 }
 
-
 .hex-card {
   position: relative;
   overflow: hidden;
   cursor: default;
   padding: 0;
-  border-radius: 20px;
-  clip-path: polygon(50% 0%, 95% 25%, 95% 75%, 50% 100%, 5% 75%, 5% 25%);
-  aspect-ratio: 1 / 1.15;
+  /* Perfect regular hexagon clip-path (no squashed 95% edges) */
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+  aspect-ratio: 1 / 1.1547;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.05);
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -1182,9 +1180,9 @@ svg { display: block; }
 }
 
 .hex-card:hover {
-  transform: translateY(-10px) scale(1.04);
-  clip-path: polygon(50% 0%, 95% 25%, 95% 75%, 50% 100%, 5% 75%, 5% 25%);
-  box-shadow: 0 20px 60px rgba(0, 245, 255, 0.2), 0 0 0 2px rgba(0, 245, 255, 0.3);
+  transform: translateY(-5px) scale(1.02);
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+  background: rgba(0, 245, 255, 0.08);
 }
 
 .hex-card:hover::before { opacity: 0.07; }
