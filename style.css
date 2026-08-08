@@ -1160,7 +1160,10 @@ svg { display: block; }
 }
 
 .hex-wrapper.hidden {
-  display: none;
+  opacity: 0.15;
+  pointer-events: none;
+  transform: scale(0.95);
+  filter: grayscale(1);
 }
 
 .hex-card {
