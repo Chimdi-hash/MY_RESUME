@@ -274,7 +274,9 @@ document.getElementById('scroll-top-btn')?.addEventListener('click', () => {
    ------------------------------------------------------------------- */
 (function initProjectFilter() {
   const filterBtns = document.querySelectorAll('.filter-btn');
-  const hexWrappers = document.querySelectorAll('.hex-wrapper');
+  const hexGrid = document.getElementById('hex-grid');
+  if (!hexGrid) return;
+  const allHexes = Array.from(document.querySelectorAll('.hex-wrapper'));
 
   filterBtns.forEach(btn => {
     btn.addEventListener('click', () => {
@@ -282,12 +284,45 @@ document.getElementById('scroll-top-btn')?.addEventListener('click', () => {
       btn.classList.add('active');
 
       const filter = btn.dataset.filter;
+      const visible = allHexes.filter(h => filter === 'all' || h.dataset.category === filter);
 
-      hexWrappers.forEach(wrapper => {
-        const cat = wrapper.dataset.category;
-        const show = filter === 'all' || cat === filter;
-        wrapper.classList.toggle('hidden', !show);
-      });
+      // Clear grid
+      hexGrid.innerHTML = '';
+
+      // Define perfect interlocking patterns based on number of items
+      const patterns = {
+        1: [1],
+        2: [2],
+        3: [2, 1],
+        4: [1, 2, 1],
+        5: [2, 1, 2],
+        6: [1, 2, 1, 2],
+        7: [1, 2, 1, 2, 1],
+        8: [2, 1, 2, 1, 2],
+        9: [1, 2, 1, 2, 1, 2],
+        10: [1, 2, 1, 2, 1, 2, 1]
+      };
+      
+      const pattern = patterns[visible.length] || [2, 1];
+      
+      let i = 0;
+      let pIdx = 0;
+      
+      while (i < visible.length) {
+        let count = pattern[pIdx % pattern.length];
+        let rowDiv = document.createElement('div');
+        rowDiv.className = 'hex-row';
+        for (let j = 0; j < count && i < visible.length; j++) {
+          // Reset AOS inline styles if any, to allow clean reflow
+          visible[i].style.transition = 'none';
+          visible[i].style.opacity = '1';
+          visible[i].style.transform = 'none';
+          rowDiv.appendChild(visible[i]);
+          i++;
+        }
+        hexGrid.appendChild(rowDiv);
+        pIdx++;
+      }
     });
   });
 })();
