@@ -1569,7 +1569,7 @@ a.contact-val:hover { color: var(--accent-cyan); }
   .hex-row + .hex-row { margin-top: -11.3vw; } /* (47vw * 0.866) - 51.96vw */
   
   .hex-inner { 
-    padding: 1vw 1.5vw 8vw 1.5vw; 
+    padding: 1vw 1.5vw 14vw 1.5vw; 
     gap: 1.5vw; 
     overflow: hidden;
   }
