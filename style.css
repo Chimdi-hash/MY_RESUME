@@ -1569,15 +1569,15 @@ a.contact-val:hover { color: var(--accent-cyan); }
   .hex-row + .hex-row { margin-top: -11.3vw; } /* (47vw * 0.866) - 51.96vw */
   
   .hex-inner { 
-    padding: 2vw 1vw 4vw 1vw; 
-    gap: 1.5vw; 
+    padding: 1vw 1.5vw 3vw 1.5vw; 
+    gap: 1vw; 
     overflow: hidden;
   }
-  .hex-title { font-size: 3.2vw; margin-bottom: 0; }
-  .hex-tech { gap: 1vw; }
-  .hex-tech span { font-size: 2vw; padding: 0.5vw 1.5vw; }
-  .hex-links { gap: 2vw; }
-  .hex-link { font-size: 2.8vw; }
+  .hex-title { font-size: 2.6vw; margin-bottom: 0; letter-spacing: 0; }
+  .hex-tech { gap: 0.8vw; }
+  .hex-tech span { font-size: 1.7vw; padding: 0.4vw 1.2vw; }
+  .hex-links { gap: 1.5vw; }
+  .hex-link { font-size: 2.2vw; }
   .hex-desc { max-width: 100%; }
 
   /* Tools - One Row (3 columns) */
