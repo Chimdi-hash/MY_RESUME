@@ -1195,7 +1195,7 @@ svg { display: block; }
   align-items: center;
   justify-content: flex-end;
   text-align: center;
-  padding: 1.5rem 1rem 2rem 1rem;
+  padding: 1.5rem 1rem 3.5rem 1rem;
   height: 100%;
   position: relative;
   z-index: 1;
@@ -1569,8 +1569,8 @@ a.contact-val:hover { color: var(--accent-cyan); }
   .hex-row + .hex-row { margin-top: -11.3vw; } /* (47vw * 0.866) - 51.96vw */
   
   .hex-inner { 
-    padding: 1vw 1.5vw 3vw 1.5vw; 
-    gap: 1vw; 
+    padding: 1vw 1.5vw 8vw 1.5vw; 
+    gap: 1.5vw; 
     overflow: hidden;
   }
   .hex-title { font-size: 2.6vw; margin-bottom: 0; letter-spacing: 0; }
