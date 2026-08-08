@@ -1145,18 +1145,8 @@ svg { display: block; }
   Margin-top = Ch - H = 277.13 - 357.96 = -80.83px (round to -81px)
   This guarantees exactly 10px of transparent space on all 6 sides of every hexagon!
 */
-.hex-row-2 {
+.hex-row + .hex-row {
   margin-top: -81px;
-}
-
-/* 
-  Row 3 has 1 item, which is perfectly centered. 
-  Row 2 has 3 items, the middle of which is perfectly centered.
-  Therefore, Row 3 does not nestle into a gap; it sits directly point-to-point
-  below the middle item of Row 2. We use a positive 10px margin to match the 10px gap.
-*/
-.hex-row-3 {
-  margin-top: 10px;
 }
 
 .hex-wrapper.hidden {
@@ -1205,7 +1195,7 @@ svg { display: block; }
   align-items: center;
   justify-content: flex-end;
   text-align: center;
-  padding: 2rem 1.5rem 3.5rem 1.5rem;
+  padding: 1.5rem 1rem 2rem 1rem;
   height: 100%;
   position: relative;
   z-index: 1;
@@ -1495,11 +1485,10 @@ a.contact-val:hover { color: var(--accent-cyan); }
 @media (max-width: 1024px) {
   .skills-grid { grid-template-columns: repeat(2, 1fr); }
   .tools-grid { grid-template-columns: repeat(2, 1fr); }
-  /* Tablet: disable honeycomb offset, show 2-per-row without stagger */
-  .hex-grid { max-width: 700px; }
-  .hex-row { gap: 1.25rem; }
-  .hex-row-2, .hex-row-3 { margin-top: 1.5rem; transform: none; }
-  .hex-wrapper { flex: 0 0 calc(50% - 0.625rem); }
+  
+  /* Tablet scale for honeycomb */
+  .hex-wrapper { flex: 0 0 240px; }
+  .hex-row + .hex-row { margin-top: -60px; }
 }
 
 /* ===================================================================
@@ -1566,20 +1555,19 @@ a.contact-val:hover { color: var(--accent-cyan); }
   .exp-meta { align-items: flex-start; }
   .timeline-content { padding: 1.5rem; }
 
-  /* Projects — mobile: stack hex-rows as normal grid, rectangular cards */
-  .hex-grid { flex-direction: column; gap: 0; }
-  .hex-row {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1rem;
-    width: 100%;
-    margin-bottom: 1rem;
+  /* Projects — true responsive honeycomb for mobile */
+  .hex-grid { 
+    flex-direction: column; 
+    gap: 0; 
   }
-  .hex-row-2, .hex-row-3 { margin-top: 0; margin-left: 0; }
-  .hex-wrapper { flex: unset; }
-  .hex-card { clip-path: none; border-radius: 14px; aspect-ratio: unset; }
-  .hex-inner { padding: 1.25rem 1rem; }
+  .hex-wrapper { flex: 0 0 160px; }
+  .hex-row + .hex-row { margin-top: -38px; }
+  .hex-inner { padding: 1rem 0.5rem 1.5rem 0.5rem; }
   .hex-desc { max-width: 100%; }
+
+  /* Tools - Keep as single column but center content */
+  .tools-grid { grid-template-columns: 1fr; }
+  .tool-card { justify-content: center; }
 
   /* Contact */
   .contact-grid { grid-template-columns: 1fr; }
@@ -1593,7 +1581,6 @@ a.contact-val:hover { color: var(--accent-cyan); }
    RESPONSIVE – SMALL MOBILE 480px
    =================================================================== */
 @media (max-width: 480px) {
-  .hex-row { grid-template-columns: 1fr !important; }
   .skills-grid { grid-template-columns: 1fr 1fr; }
   .hero-stats { gap: 1.25rem; }
   .hero-cta { flex-direction: column; align-items: center; }
@@ -1604,4 +1591,8 @@ a.contact-val:hover { color: var(--accent-cyan); }
   .timeline-content { padding: 1.25rem 1rem; }
   .photo-frame { width: 200px; height: 230px; }
   .hex-frame-inner { width: 100%; height: 100%; }
+
+  /* Tiny screen honeycomb adjustment */
+  .hex-wrapper { flex: 0 0 130px; }
+  .hex-row + .hex-row { margin-top: -30px; }
 }
