@@ -1555,14 +1555,29 @@ a.contact-val:hover { color: var(--accent-cyan); }
   .exp-meta { align-items: flex-start; }
   .timeline-content { padding: 1.5rem; }
 
-  /* Projects — true responsive honeycomb for mobile */
+  /* Projects — mathematically perfect responsive honeycomb using vw units */
   .hex-grid { 
     flex-direction: column; 
     gap: 0; 
   }
-  .hex-wrapper { flex: 0 0 160px; }
-  .hex-row + .hex-row { margin-top: -38px; }
-  .hex-inner { padding: 1rem 0.5rem 1.5rem 0.5rem; }
+  .hex-row { gap: 2vw; }
+  .hex-wrapper { 
+    flex: 0 0 45vw; 
+    height: 51.96vw; /* 45vw * 1.1547 */
+  }
+  .hex-card { width: 100%; height: 100%; }
+  .hex-row + .hex-row { margin-top: -11.3vw; } /* (47vw * 0.866) - 51.96vw */
+  
+  .hex-inner { 
+    padding: 2vw 1vw 4vw 1vw; 
+    gap: 1.5vw; 
+    overflow: hidden;
+  }
+  .hex-title { font-size: 3.2vw; margin-bottom: 0; }
+  .hex-tech { gap: 1vw; }
+  .hex-tech span { font-size: 2vw; padding: 0.5vw 1.5vw; }
+  .hex-links { gap: 2vw; }
+  .hex-link { font-size: 2.8vw; }
   .hex-desc { max-width: 100%; }
 
   /* Tools - One Row (3 columns) */
@@ -1605,7 +1620,5 @@ a.contact-val:hover { color: var(--accent-cyan); }
   .photo-frame { width: 200px; height: 230px; }
   .hex-frame-inner { width: 100%; height: 100%; }
 
-  /* Tiny screen honeycomb adjustment */
-  .hex-wrapper { flex: 0 0 130px; }
-  .hex-row + .hex-row { margin-top: -30px; }
+  /* Tiny screen honeycomb adjustment (no overrides needed, vw handles it automatically!) */
 }
