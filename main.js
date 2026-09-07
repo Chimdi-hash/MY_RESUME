@@ -357,9 +357,12 @@ document.getElementById('scroll-top-btn')?.addEventListener('click', () => {
       return;
     }
 
-    // Simulate send
+    // Trigger mailto link
+    const mailtoLink = `mailto:Unaezechimdi@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent("Name: " + name + "\nEmail: " + email + "\n\nMessage:\n" + message)}`;
+    window.location.href = mailtoLink;
+
     submitBtn.disabled = true;
-    if (btnText) btnText.textContent = 'Sending...';
+    if (btnText) btnText.textContent = 'Opening Mail App...';
 
     setTimeout(() => {
       form.reset();
