@@ -203,10 +203,18 @@ svg { display: block; }
   font-size: 1.1rem;
   font-weight: 700;
   letter-spacing: 2px;
+  display: inline-flex;
+  align-items: center;
+  transition: all var(--transition);
+}
+
+.nav-logo:hover .logo-text {
+  color: #fff;
+  text-shadow: 0 0 12px rgba(0, 245, 255, 0.6);
 }
 
 .logo-bracket { color: var(--accent-cyan); }
-.logo-text { color: var(--text-primary); }
+.logo-text { color: var(--text-primary); transition: all var(--transition); }
 
 .nav-links {
   display: flex;
@@ -521,6 +529,60 @@ svg { display: block; }
 }
 
 .name-line { display: block; }
+
+.hero-handle-row {
+  display: flex;
+  align-items: center;
+  margin-top: -0.2rem;
+  margin-bottom: 1.25rem;
+}
+
+.hero-handle-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  background: rgba(155, 89, 255, 0.08);
+  border: 1px solid rgba(155, 89, 255, 0.28);
+  padding: 0.35rem 0.85rem;
+  border-radius: 50px;
+  font-size: 0.88rem;
+  color: var(--text-primary);
+  text-decoration: none;
+  backdrop-filter: blur(10px);
+  transition: all var(--transition);
+}
+
+.hero-handle-badge:hover {
+  background: rgba(155, 89, 255, 0.18);
+  border-color: var(--accent-cyan);
+  box-shadow: 0 0 20px rgba(0, 245, 255, 0.25);
+  transform: translateY(-2px);
+  color: #fff;
+}
+
+.hero-handle-badge .handle-at {
+  color: var(--accent-cyan);
+  font-weight: 700;
+  font-family: var(--font-display);
+}
+
+.hero-handle-badge .handle-name {
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  color: var(--text-primary);
+}
+
+.hero-handle-badge .handle-pill {
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.7px;
+  text-transform: uppercase;
+  background: rgba(0, 245, 255, 0.12);
+  color: var(--accent-cyan);
+  padding: 0.15rem 0.5rem;
+  border-radius: 12px;
+  border: 1px solid rgba(0, 245, 255, 0.25);
+}
 
 .hero-typing-wrap {
   font-size: 1.1rem;
@@ -1460,6 +1522,17 @@ a.contact-val:hover { color: var(--accent-cyan); }
 
 .footer p { font-size: 0.85rem; color: var(--text-muted); }
 .footer-copy { font-size: 0.78rem; }
+.footer-alias {
+  display: inline-block;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  color: var(--accent-cyan);
+  transition: all var(--transition);
+}
+.footer-alias:hover {
+  text-shadow: 0 0 10px rgba(0, 245, 255, 0.6);
+  color: #fff;
+}
 
 /* ===================================================================
    SCROLL TO TOP
@@ -1570,6 +1643,7 @@ a.contact-val:hover { color: var(--accent-cyan); }
 
   .hero-tag { justify-content: center; }
   .hero-name { align-items: center; }
+  .hero-handle-row { justify-content: center; }
   .hero-bio { margin: 0 auto 2rem; }
   .hero-stats { justify-content: center; }
   .hero-cta { justify-content: center; }
